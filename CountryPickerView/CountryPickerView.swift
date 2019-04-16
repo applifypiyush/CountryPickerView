@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreTelephony
 
 public typealias CPVCountry = Country
 
@@ -80,18 +81,51 @@ public class CountryPickerView: NibView {
     weak public var hostViewController: UIViewController?
     
     fileprivate var _selectedCountry: Country?
+    public var selectCountryFromLocale = true {
+        didSet {
+            _selectedCountry = nil
+            setup()
+        }
+    }
+    public var selectCountryFromSIM = true {
+        didSet {
+            _selectedCountry = nil
+            setup()
+        }
+    }
+    public var defaultSelectedCountryCode = "SG" {
+        didSet {
+            _selectedCountry = nil
+            setup()
+        }
+    }
     internal(set) public var selectedCountry: Country {
         get {
-            return _selectedCountry
-                ?? countries.first(where: { $0.code == Locale.current.regionCode })
-                ?? countries.first(where: { $0.code == "NG" })!
+            var isoCountryCode: String = ""
+            let networkInfo = CTTelephonyNetworkInfo()
+            if let carrier = networkInfo.subscriberCellularProvider,
+                let code = carrier.isoCountryCode {
+                isoCountryCode = code
+            }
+            if let country = _selectedCountry {
+                return country
+            } else if selectCountryFromSIM == true,
+                let country = countries.first(where: { $0.code == isoCountryCode.uppercased() }) {
+                return country
+            } else if selectCountryFromLocale == true,
+                let country = countries.first(where: { $0.code == Locale.current.regionCode }) {
+                return country
+            } else {
+                let country = countries.first(where: { $0.code == defaultSelectedCountryCode })!
+                return country
+            }
         }
         set {
             _selectedCountry = newValue
             setup()
         }
     }
-    
+
     override public init(frame: CGRect) {
         super.init(frame: frame)
         setup()
