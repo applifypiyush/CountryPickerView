@@ -144,7 +144,12 @@ extension CountryPickerViewController {
         if let color = dataSource.cellLabelColor {
             cell.textLabel?.textColor = color
         }
-        cell.accessoryType = country == countryPickerView.selectedCountry ? .checkmark : .none
+        var accessoryType: UITableViewCell.AccessoryType = .none
+        if let selectedCountry = countryPickerView.selectedCountry,
+            country == selectedCountry {
+            accessoryType = .checkmark
+        }
+        cell.accessoryType = accessoryType
         cell.separatorInset = .zero
         return cell
     }

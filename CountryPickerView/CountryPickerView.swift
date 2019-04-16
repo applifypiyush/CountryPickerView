@@ -99,7 +99,7 @@ public class CountryPickerView: NibView {
             setup()
         }
     }
-    internal(set) public var selectedCountry: Country {
+    internal(set) public var selectedCountry: Country? {
         get {
             var isoCountryCode: String = ""
             let networkInfo = CTTelephonyNetworkInfo()
@@ -116,7 +116,7 @@ public class CountryPickerView: NibView {
                 let country = countries.first(where: { $0.code == Locale.current.regionCode }) {
                 return country
             } else {
-                let country = countries.first(where: { $0.code == defaultSelectedCountryCode })!
+                let country = countries.first(where: { $0.code == defaultSelectedCountryCode })
                 return country
             }
         }
@@ -125,7 +125,7 @@ public class CountryPickerView: NibView {
             setup()
         }
     }
-
+    
     override public init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -137,9 +137,13 @@ public class CountryPickerView: NibView {
     }
     
     func setup() {
-        flagImageView.image = selectedCountry.flag
         countryDetailsLabel.font = font
         countryDetailsLabel.textColor = textColor
+        countryDetailsLabel.text = nil
+        guard let selectedCountry = selectedCountry else {
+            return
+        }
+        flagImageView.image = selectedCountry.flag
         if showPhoneCodeInView && showCountryCodeInView {
             countryDetailsLabel.text = "(\(selectedCountry.code)) \(selectedCountry.phoneCode)"
             return
@@ -147,8 +151,6 @@ public class CountryPickerView: NibView {
         
         if showCountryCodeInView || showPhoneCodeInView {
             countryDetailsLabel.text = showCountryCodeInView ? selectedCountry.code : selectedCountry.phoneCode
-        } else {
-            countryDetailsLabel.text = nil
         }
         
     }
