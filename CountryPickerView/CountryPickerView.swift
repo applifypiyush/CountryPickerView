@@ -107,6 +107,7 @@ public class CountryPickerView: NibView {
                 let code = carrier.isoCountryCode {
                 isoCountryCode = code
             }
+            let countries = self.countries()
             if let country = _selectedCountry {
                 return country
             } else if selectCountryFromSIM == true,
@@ -187,69 +188,97 @@ public class CountryPickerView: NibView {
         }
     }
     
-    public var countries: [Country] = {
-        var countries = [Country]()
-        let bundle = Bundle(for: CountryPickerView.self)
-        guard let jsonPath = bundle.path(forResource: "CountryPickerView.bundle/Data/CountryCodes", ofType: "json"),
-            let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) else {
-                return countries
+    public var countriesToSkip: [Country] = [] {
+        didSet {
+            _selectedCountry = nil
+            setup()
         }
-        
-        if let jsonObjects = (try? JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization
-            .ReadingOptions.allowFragments)) as? Array<Any> {
-            
-            for jsonObject in jsonObjects {
-                
-                guard let countryObj = jsonObject as? Dictionary<String, Any> else {
-                    continue
-                }
-                
-                guard let name = countryObj["name"] as? String,
-                    let code = countryObj["code"] as? String,
-                    let phoneCode = countryObj["dial_code"] as? String else {
-                        continue
-                }
-                
-                let country = Country(name: name, code: code, phoneCode: phoneCode)
-                countries.append(country)
+    }
+
+    
+    func countries() -> [Country] {
+            var countries = [Country]()
+            let bundle = Bundle(for: CountryPickerView.self)
+            guard let jsonPath = bundle.path(forResource: "CountryPickerView.bundle/Data/CountryCodes", ofType: "json"),
+                let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) else {
+                    return countries
             }
             
-        }
-        
-        return countries
-    }()
+            if let jsonObjects = (try? JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization
+                .ReadingOptions.allowFragments)) as? Array<Any> {
+                
+                for jsonObject in jsonObjects {
+                    
+                    guard let countryObj = jsonObject as? Dictionary<String, Any> else {
+                        continue
+                    }
+                    
+                    guard let name = countryObj["name"] as? String,
+                        let code = countryObj["code"] as? String,
+                        let phoneCode = countryObj["dial_code"] as? String else {
+                            continue
+                    }
+                    
+                    let country = Country(name: name, code: code, phoneCode: phoneCode)
+                    if countriesToSkip.first(where: { countryToSkip -> Bool in
+                        return countryToSkip == country
+                    }) == nil {
+                        countries.append(country)
+                    }
+                }
+                
+            }
+            return countries
+    }
 }
 
 //MARK: Helper methods
 extension CountryPickerView {
     public func setCountryByName(_ name: String) {
+        let countries = self.countries()
         if let country = countries.first(where: { $0.name == name }){
             selectedCountry = country
         }
     }
     
     public func setCountryByPhoneCode(_ phoneCode: String) {
+        let countries = self.countries()
         if let country = countries.first(where: { $0.phoneCode == phoneCode }) {
             selectedCountry = country
         }
     }
     
     public func setCountryByCode(_ code: String) {
+        let countries = self.countries()
         if let country = countries.first(where: { $0.code == code }) {
             selectedCountry = country
         }
     }
     
     public func getCountryByName(_ name: String) -> Country? {
+        let countries = self.countries()
         return countries.first(where: { $0.name == name })
     }
     
     public func getCountryByPhoneCode(_ phoneCode: String) -> Country? {
+        let countries = self.countries()
         return countries.first(where: { $0.phoneCode == phoneCode })
     }
     
     public func getCountryByCode(_ code: String) -> Country? {
+        let countries = self.countries()
         return countries.first(where: { $0.code == code })
+    }
+
+    public func getCountriesByCodes(_ codes: [String]) -> [Country] {
+        let countries = self.countries()
+        var countriesByCodes = [Country]()
+        for code in codes {
+            if let country = countries.first(where: { $0.code == code }) {
+                countriesByCodes.append(country)
+            }
+        }
+        return countriesByCodes
     }
 }
 

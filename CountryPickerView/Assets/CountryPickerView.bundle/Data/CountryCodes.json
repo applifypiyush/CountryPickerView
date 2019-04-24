@@ -80,7 +80,7 @@
 "code": "AZ"
 },
 {
-"name": "Bahamas",
+"name": "The Bahamas",
 "dial_code": "+1242",
 "code": "BS"
 },
@@ -170,6 +170,11 @@
 "code": "BF"
 },
 {
+"name": "Burma",
+"dial_code": "+95",
+"code": "MM"
+},
+{
 "name": "Burundi",
 "dial_code": "+257",
 "code": "BI"
@@ -240,7 +245,7 @@
 "code": "KM"
 },
 {
-"name": "Congo",
+"name": "Republic of the Congo",
 "dial_code": "+242",
 "code": "CG"
 },
@@ -303,6 +308,11 @@
 "name": "Dominican Republic",
 "dial_code": "+1849",
 "code": "DO"
+},
+{
+"name": "East Timor",
+"dial_code": "+670",
+"code": "EAT"
 },
 {
 "name": "Ecuador",
@@ -380,9 +390,14 @@
 "code": "GA"
 },
 {
-"name": "Gambia",
+"name": "The Gambia",
 "dial_code": "+220",
 "code": "GM"
+},
+{
+"name": "Gaza Strip",
+"dial_code": "+970",
+"code": "G"
 },
 {
 "name": "Georgia",
@@ -495,7 +510,7 @@
 "code": "ID"
 },
 {
-"name": "Iran, Islamic Republic of Persian Gulf",
+"name": "Iran",
 "dial_code": "+98",
 "code": "IR"
 },
@@ -560,12 +575,12 @@
 "code": "KI"
 },
 {
-"name": "Korea, Democratic People's Republic of Korea",
+"name": "North Korea",
 "dial_code": "+850",
 "code": "KP"
 },
 {
-"name": "Korea, Republic of South Korea",
+"name": "South Korea",
 "dial_code": "+82",
 "code": "KR"
 },
@@ -605,7 +620,7 @@
 "code": "LR"
 },
 {
-"name": "Libyan Arab Jamahiriya",
+"name": "Libya",
 "dial_code": "+218",
 "code": "LY"
 },
@@ -733,11 +748,6 @@
 "name": "Mozambique",
 "dial_code": "+258",
 "code": "MZ"
-},
-{
-"name": "Myanmar",
-"dial_code": "+95",
-"code": "MM"
 },
 {
 "name": "Namibia",
@@ -905,7 +915,7 @@
 "code": "BL"
 },
 {
-"name": "Saint Helena, Ascension and Tristan Da Cunha",
+"name": "Saint Helena",
 "dial_code": "+290",
 "code": "SH"
 },
@@ -1025,6 +1035,11 @@
 "code": "LK"
 },
 {
+"name": "St Pierre & Miquelon",
+"dial_code": "+94",
+"code": "SP"
+},
+{
 "name": "Sudan",
 "dial_code": "+249",
 "code": "SD"
@@ -1055,7 +1070,7 @@
 "code": "CH"
 },
 {
-"name": "Syrian Arab Republic",
+"name": "Syria",
 "dial_code": "+963",
 "code": "SY"
 },
@@ -1070,7 +1085,7 @@
 "code": "TJ"
 },
 {
-"name": "Tanzania, United Republic of Tanzania",
+"name": "Tanzania",
 "dial_code": "+255",
 "code": "TZ"
 },
@@ -1170,7 +1185,7 @@
 "code": "VU"
 },
 {
-"name": "Venezuela, Bolivarian Republic of Venezuela",
+"name": "Venezuela",
 "dial_code": "+58",
 "code": "VE"
 },
@@ -1180,12 +1195,7 @@
 "code": "VN"
 },
 {
-"name": "Virgin Islands, British",
-"dial_code": "+1284",
-"code": "VG"
-},
-{
-"name": "Virgin Islands, U.S.",
+"name": "Virgin Islands",
 "dial_code": "+1340",
 "code": "VI"
 },
@@ -1193,6 +1203,16 @@
 "name": "Wallis and Futuna",
 "dial_code": "+681",
 "code": "WF"
+},
+{
+"name": "West Bank",
+"dial_code": "+681",
+"code": "WB"
+},
+{
+"name": "Western Sahara",
+"dial_code": "+681",
+"code": "WT"
 },
 {
 "name": "Yemen",

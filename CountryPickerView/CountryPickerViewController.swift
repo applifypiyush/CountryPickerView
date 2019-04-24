@@ -46,7 +46,7 @@ extension CountryPickerViewController {
     
     func prepareTableItems()  {
         if !showOnlyPreferredSection {
-            let countriesArray = countryPickerView.countries
+            let countriesArray = countryPickerView.countries()
             
             var groupedData = Dictionary<String, [Country]>(grouping: countriesArray) {
                 let name = $0.localizedName ?? $0.name
