@@ -29,7 +29,7 @@ class DemoViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        var countriesToSkip = cpvMain.getCountriesByCodes(["AX", "AQ", "CX", "CC", "FK", "VA", "ME", "NU", "NF", "PS", "PN", "BL", "MF", "PM", "SS", "GS", "SJ", "TL", "TG"])
+        let countriesToSkip = cpvInternal.getCountriesByCodes(["AX", "AQ", "CX", "CC", "FK", "VA", "ME", "NU", "NF", "PS", "PN", "BL", "MF", "PM", "SS", "GS", "SJ", "TL", "TG"])
 
         let cp = CountryPickerView(frame: CGRect(x: 0, y: 0, width: 120, height: 20))
         phoneNumberField.leftView = cp
@@ -49,11 +49,11 @@ class DemoViewController: UITableViewController {
         cpvIndependent.selectCountryFromSIM = false
         cpvIndependent.countriesToSkip = countriesToSkip
         cpvInternal.countriesToSkip = countriesToSkip
+        cpvInternal.dataSource = self
 
         [cpvMain, cpvTextField, cpvIndependent, cpvInternal].forEach {
             $0?.dataSource = self
         }
-
 
         cpvInternal.delegate = self
         cpvInternal.selectCountryFromLocale = false
@@ -159,14 +159,14 @@ extension DemoViewController: CountryPickerViewDataSource {
             default: return .hidden
             }
         }
-        return .tableViewHeader
+        return .navigationBar
     }
     
     func showPhoneCodeInList(in countryPickerView: CountryPickerView) -> Bool {
         if countryPickerView.tag == cpvMain.tag {
             return showPhoneCodeInList.isOn
         }
-        return false
+        return true
     }
 }
 
