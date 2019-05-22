@@ -209,11 +209,13 @@ extension CountryPickerViewController {
     
     override public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if !isSearchMode , indexPath.row == 0 {
+        var index = indexPath.row
+        if !isSearchMode , index == 0 {
             return
         }
+        index -= 1
         let country = isSearchMode ? searchResults[indexPath.row]
-            : countries[sectionsTitles[indexPath.section]]![indexPath.row]
+            : countries[sectionsTitles[indexPath.section]]![index]
 
         if #available(iOS 11.0, *) {
             navigationItem.searchController?.dismiss(animated: false, completion: nil)
