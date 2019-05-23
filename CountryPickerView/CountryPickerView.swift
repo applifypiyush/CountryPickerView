@@ -101,25 +101,28 @@ public class CountryPickerView: NibView {
     }
     internal(set) public var selectedCountry: Country? {
         get {
-            var isoCountryCode: String = ""
-            let networkInfo = CTTelephonyNetworkInfo()
-            if let carrier = networkInfo.subscriberCellularProvider,
-                let code = carrier.isoCountryCode {
-                isoCountryCode = code
-            }
-            let countries = self.countries()
             if let country = _selectedCountry {
                 return country
-            } else if selectCountryFromSIM == true,
-                let country = countries.first(where: { $0.code == isoCountryCode.uppercased() }) {
-                return country
-            } else if selectCountryFromLocale == true,
-                let country = countries.first(where: { $0.code == Locale.current.regionCode }) {
-                return country
             } else {
-                let country = countries.first(where: { $0.code == defaultSelectedCountryCode })
-                return country
+                var isoCountryCode: String = ""
+                let networkInfo = CTTelephonyNetworkInfo()
+                if let carrier = networkInfo.subscriberCellularProvider,
+                    let code = carrier.isoCountryCode {
+                    isoCountryCode = code
+                }
+                let countries = self.countries()
+                if selectCountryFromSIM == true,
+                    let country = countries.first(where: { $0.code == isoCountryCode.uppercased() }) {
+                    _selectedCountry = country
+                } else if selectCountryFromLocale == true,
+                    let country = countries.first(where: { $0.code == Locale.current.regionCode }) {
+                    _selectedCountry = country
+                } else {
+                    let country = countries.first(where: { $0.code == defaultSelectedCountryCode })
+                    _selectedCountry = country
+                }
             }
+            return _selectedCountry
         }
         set {
             _selectedCountry = newValue

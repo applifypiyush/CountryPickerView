@@ -36,6 +36,7 @@ public class CountryPickerViewController: UITableViewController {
         self.tableView.backgroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0,
                                                  alpha: 1)
         self.tableView.tableFooterView = UIView()
+        self.tableView.keyboardDismissMode = .interactive
         prepareTableItems()
         prepareNavItem()
         prepareSearchBar()
@@ -100,10 +101,11 @@ extension CountryPickerViewController {
 
         switch searchBarPosition {
         case .tableViewHeader: tableView.tableHeaderView = searchController.searchBar
-        case .navigationBar: if #available(iOS 11.0, *) {
-            navigationItem.searchController = searchController
-        } else {
-            // Fallback on earlier versions
+        case .navigationBar:
+            if #available(iOS 11.0, *) {
+                navigationItem.searchController = searchController
+            } else {
+                navigationItem.titleView = searchController.searchBar
             }
         default: break
         }
@@ -217,10 +219,8 @@ extension CountryPickerViewController {
         let country = isSearchMode ? searchResults[indexPath.row]
             : countries[sectionsTitles[indexPath.section]]![index]
 
-        if #available(iOS 11.0, *) {
-            navigationItem.searchController?.dismiss(animated: false, completion: nil)
-        } else {
-            // Fallback on earlier versions
+        if dataSource.searchBarPosition != .hidden  {
+            searchController.dismiss(animated: false, completion: nil)
         }
         
         let completion = {
@@ -268,13 +268,7 @@ extension CountryPickerViewController: UISearchBarDelegate {
     }
     // MARK: - UISearchBar Delegate
     public func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        if #available(iOS 11.0, *) {
-            if let searchController = navigationItem.searchController {
-                updateSearchResults(for: searchController)
-            }
-        } else {
-            // Fallback on earlier versions
-        }
+        updateSearchResults(for: searchController)
     }
 }
 

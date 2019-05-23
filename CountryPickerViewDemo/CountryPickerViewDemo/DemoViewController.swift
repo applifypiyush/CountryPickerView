@@ -29,7 +29,7 @@ class DemoViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let countriesToSkip = cpvInternal.getCountriesByCodes(["AX", "AQ", "CX", "CC", "FK", "VA", "ME", "NU", "NF", "PS", "PN", "BL", "MF", "PM", "SS", "GS", "SJ", "TL", "TG"])
+        let countriesToSkip = cpvMain.getCountriesByCodes(["AX", "AQ", "CX", "CC", "FK", "VA", "ME", "NU", "NF", "PS", "PN", "BL", "MF", "PM", "SS", "GS", "SJ", "TL", "TG"])
 
         let cp = CountryPickerView(frame: CGRect(x: 0, y: 0, width: 120, height: 20))
         phoneNumberField.leftView = cp
