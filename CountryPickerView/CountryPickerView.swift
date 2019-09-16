@@ -110,7 +110,7 @@ public class CountryPickerView: NibView {
                     let code = carrier.isoCountryCode {
                     isoCountryCode = code
                 }
-                let countries = self.countries()
+                let countries = self.countries
                 if selectCountryFromSIM == true,
                     let country = countries.first(where: { $0.code == isoCountryCode.uppercased() }) {
                     _selectedCountry = country
@@ -199,7 +199,7 @@ public class CountryPickerView: NibView {
     }
 
     
-    func countries() -> [Country] {
+    lazy var countries: [Country] = {
             var countries = [Country]()
             let bundle = Bundle(for: CountryPickerView.self)
             guard let jsonPath = bundle.path(forResource: "CountryPickerView.bundle/Data/CountryCodes", ofType: "json"),
@@ -232,49 +232,49 @@ public class CountryPickerView: NibView {
                 
             }
             return countries
-    }
+    }()
 }
 
 //MARK: Helper methods
 extension CountryPickerView {
     public func setCountryByName(_ name: String) {
-        let countries = self.countries()
+        let countries = self.countries
         if let country = countries.first(where: { $0.name == name }){
             selectedCountry = country
         }
     }
     
     public func setCountryByPhoneCode(_ phoneCode: String) {
-        let countries = self.countries()
+        let countries = self.countries
         if let country = countries.first(where: { $0.phoneCode == phoneCode }) {
             selectedCountry = country
         }
     }
     
     public func setCountryByCode(_ code: String) {
-        let countries = self.countries()
+        let countries = self.countries
         if let country = countries.first(where: { $0.code == code }) {
             selectedCountry = country
         }
     }
     
     public func getCountryByName(_ name: String) -> Country? {
-        let countries = self.countries()
+        let countries = self.countries
         return countries.first(where: { $0.name == name })
     }
     
     public func getCountryByPhoneCode(_ phoneCode: String) -> Country? {
-        let countries = self.countries()
+        let countries = self.countries
         return countries.first(where: { $0.phoneCode == phoneCode })
     }
     
     public func getCountryByCode(_ code: String) -> Country? {
-        let countries = self.countries()
+        let countries = self.countries
         return countries.first(where: { $0.code == code })
     }
 
     public func getCountriesByCodes(_ codes: [String]) -> [Country] {
-        let countries = self.countries()
+        let countries = self.countries
         var countriesByCodes = [Country]()
         for code in codes {
             if let country = countries.first(where: { $0.code == code }) {
