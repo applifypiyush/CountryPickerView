@@ -226,6 +226,7 @@ extension CountryPickerViewController {
         let completion = {
             self.countryPickerView.selectedCountry = country
             self.countryPickerView.delegate?.countryPickerView(self.countryPickerView, didSelectCountry: country)
+            self.countryPickerView.completionHandler?()
         }
         // If this is root, dismiss, else pop
         if navigationController?.viewControllers.count == 1 {

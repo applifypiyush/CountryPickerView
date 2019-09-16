@@ -78,6 +78,7 @@ public class CountryPickerView: NibView {
     
     weak public var dataSource: CountryPickerViewDataSource?
     weak public var delegate: CountryPickerViewDelegate?
+    public var completionHandler: (() -> Void)?
     weak public var hostViewController: UIViewController?
     
     fileprivate var _selectedCountry: Country?
