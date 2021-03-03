@@ -170,7 +170,7 @@
 "code": "BF"
 },
 {
-"name": "Burma",
+"name": "Burma (Myanmar)",
 "dial_code": "+95",
 "code": "MM"
 },
@@ -310,7 +310,7 @@
 "code": "DO"
 },
 {
-"name": "East Timor",
+"name": "East Timor (Timor-Leste)",
 "dial_code": "+670",
 "code": "EAT"
 },
@@ -1165,7 +1165,7 @@
 "code": "GB"
 },
 {
-"name": "United States",
+"name": "United States of America (USA)",
 "dial_code": "+1",
 "code": "US"
 },
