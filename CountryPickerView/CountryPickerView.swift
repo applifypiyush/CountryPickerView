@@ -20,7 +20,8 @@ public struct Country {
     public var code: String
     public var phoneCode: String
     public var localizedName: String? {
-        return Locale.current.localizedString(forRegionCode: code)
+        return name
+//        return Locale.current.localizedString(forRegionCode: code)
     }
     public var flag: UIImage {
         return UIImage(named: "CountryPickerView.bundle/Images/\(code.uppercased())",
